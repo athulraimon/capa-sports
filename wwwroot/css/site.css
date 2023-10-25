@@ -1,5 +1,5 @@
 body {
-    background-image: url('../img/back.jpg'); /* Replace with the actual web image URL */
+    /*background-image: url('../img/back.jpg'); /* Replace with the actual web image URL */
     background-size: cover;
     background-position: center;
     font-family: Arial, sans-serif;
@@ -46,4 +46,44 @@ body {
 
 .new-user-link {
     margin-top: 10px;
+}
+
+.push-to-bottom {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Center align the navigation content */
+.navigation-container {
+    display: flex;
+    justify-content: center;
+}
+
+.navigation-item {
+    text-align: center;
+}
+
+.banner {
+    top:0;
+    position:absolute;
+    width:100%;
+    height:60px;
+    padding:0;
+    display:flex;
+    justify-content:center;
+}
+
+.sports {
+    top: auto;
+    padding: 0;
+    width: 100%;
+    display:flex;
+    position:sticky;
+    justify-content:center;
+}
+
+.navigation {
+    width:367.2px;
+    bottom:0;
 }
