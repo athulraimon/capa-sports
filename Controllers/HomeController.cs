@@ -18,15 +18,32 @@ namespace capa_app.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        [HttpGet("/Stats")]
+        public IActionResult Stats()
         {
             return View();
         }
+
+        [HttpGet("/Calendar")]
+        public IActionResult Calendar()
+        {
+            return View();
+        }
+
+        [HttpGet("/Score")]
+        public IActionResult Score()
+        {
+            return View();
+        }
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+
     }
 }

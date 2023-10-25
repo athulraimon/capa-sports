@@ -63,6 +63,7 @@ body {
 
 .navigation-item {
     text-align: center;
+    margin-right:20px;
 }
 
 .banner {
@@ -78,19 +79,29 @@ body {
 
 .sports {
     
-    padding: 10px;
+    padding: 20px;
     width: 100%;
     display:flex;
     left:0;
     top:60px;
     position:absolute;
     justify-content:center;
+    
 }
 
+
 .navigation {
-    background-color:gray;
+    background-color:lightgray;
     width:100%;
     bottom:0;
     left:0;
     padding:10px;
+    
+}
+
+.highlighted-icon {
+    border: 2px solid #808080; /* Set the border width and color */
+    border-radius: 50%; /* Create a circular border */
+    padding: 5px; /* Adjust the padding as needed */
+    background-color: darkgray;
 }
