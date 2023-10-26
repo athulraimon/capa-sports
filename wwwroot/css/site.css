@@ -63,7 +63,7 @@ body {
 
 .navigation-item {
     text-align: center;
-    margin-right:20px;
+    margin-right:10px;
 }
 
 .banner {
@@ -125,7 +125,12 @@ body {
 
 .standings-table {
     width: 100%;
-    margin: 20px 0;
+    display: table;
+    top: 100px;
+    position: absolute;
+    left: 0;
+    justify-content: center;
+    /* You can remove 'position' and 'left' properties */
 }
 
     .standings-table th {
