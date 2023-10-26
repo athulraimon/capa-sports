@@ -126,14 +126,15 @@ body {
 
 .standings-container {
     top: 130px;
-    left:60px;
-    position:absolute;
+    left: 30px;
+    position: absolute;
+    justify-content: center;
 }
 .standings-table {
     width: 100%;
     display: table;
     
-    justify-content: center;
+    
     /* You can remove 'position' and 'left' properties */
 }
 
@@ -155,3 +156,10 @@ body {
     .standings-table tr:hover {
         background-color: #ddd;
     }
+
+.tabs {
+    top: 60px;
+    left: 30px;
+    position: absolute;
+    justify-content: center;
+}

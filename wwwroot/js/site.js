@@ -17,3 +17,6 @@ function openScoreWindow() {
 function openUserWindow() {
     window.location.href = '/User';
 }
+
+
+
