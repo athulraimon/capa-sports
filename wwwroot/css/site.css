@@ -123,12 +123,16 @@ body {
     background-color: darkgray;
 }
 
+
+.standings-container {
+    top: 130px;
+    left:60px;
+    position:absolute;
+}
 .standings-table {
     width: 100%;
     display: table;
-    top: 100px;
-    position: absolute;
-    left: 0;
+    
     justify-content: center;
     /* You can remove 'position' and 'left' properties */
 }
