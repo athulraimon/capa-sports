@@ -13,3 +13,7 @@ function openCalWindow() {
 function openScoreWindow() {
     window.location.href = '/Score';
 }
+
+function openUserWindow() {
+    window.location.href = '/User';
+}

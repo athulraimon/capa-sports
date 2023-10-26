@@ -36,6 +36,12 @@ namespace capa_app.Controllers
             return View();
         }
 
+        [HttpGet("/User")]
+        public IActionResult User()
+        {
+            return View();
+        }
+
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
