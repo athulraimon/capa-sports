@@ -68,13 +68,14 @@ body {
 
 .banner {
     top:0;
-    position:absolute;
+    position:fixed;
     width:100%;
     left:0;
     height:60px;
     padding:10px;
     display:flex;
     justify-content:center;
+    z-index:999;
 }
 
 .sports {
@@ -89,6 +90,21 @@ body {
     
 }
 
+.news-cards {
+    padding: 30px;
+    width: 100%;
+    display: flex;
+    left: 0;
+    top: 100px;
+    position: absolute;
+    justify-content: center;
+    background-color:#F6F6F6;
+    font-size:14px;
+}
+
+.card {
+    margin-bottom: 10px;
+}
 
 .navigation {
     background-color:lightgray;
@@ -96,6 +112,7 @@ body {
     bottom:0;
     left:0;
     padding:10px;
+    position:fixed;
     
 }
 
@@ -105,3 +122,27 @@ body {
     padding: 5px; /* Adjust the padding as needed */
     background-color: darkgray;
 }
+
+.standings-table {
+    width: 100%;
+    margin: 20px 0;
+}
+
+    .standings-table th {
+        background-color: #a2a7db;
+        color: #fff;
+        text-align: center;
+    }
+
+    .standings-table th,
+    .standings-table td {
+        padding: 10px;
+    }
+
+    .standings-table tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .standings-table tr:hover {
+        background-color: #ddd;
+    }
