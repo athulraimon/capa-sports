@@ -20,3 +20,33 @@ function openUserWindow() {
 
 
 
+const landing = {
+    el: '#capa',
+    data() {
+        return {
+            showFoot: true,
+            showCric: true,
+            showBask: true,
+            showTen: true,
+            showF1: true
+        }
+    },
+    methods: {
+        toggleFoot() {
+            this.showFoot = !this.showFoot;
+        },
+        toggleCric() {
+            this.showCric = !this.showCric;
+        },
+        toggleBask() {
+            this.showBask = !this.showBask;
+        },
+        toggleTen() {
+            this.showTen = !this.showTen;
+        },
+        toggleF1() {
+            this.showF1 = !this.showF1;
+        },
+
+    }
+}

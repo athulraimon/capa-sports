@@ -166,13 +166,20 @@ body {
 
 .calendar-tab {
     position:absolute;
-    top:150px;
+    top:130px;
     left:40px;
     background:none;
-
+    display:flex;
+    width:100%;
 }
 
 .sports-button {
     background-color: white;
     border: none;
+}
+
+.sport-icon {
+    border-radius: 50%; /* Create a circular border */
+    padding: 5px; /* Adjust the padding as needed */
+    background-color: darkgray;
 }

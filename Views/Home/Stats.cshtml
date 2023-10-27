@@ -8,24 +8,24 @@
 
 
 
-    <div class="col-2 text-center" style="margin-right: 10px;">
-                <img src="img/football.png" alt="App Logo" width="30" > <!-- Football icon -->
+    <div class="col-2 text-center" style="margin-right: 10px;" v-on:click="toggleFoot()">
+                <img src="img/football.png" alt="App Logo" width="30" :class="[showFoot?'sport-icon':'']" > <!-- Football icon -->
 
             </div>
-    <div class="col-2 text-center" style="margin-right: 10px;">
-                <img src="img/basketball.png" alt="App Logo" width="30"><!-- Basketball icon -->
+    <div class="col-2 text-center" style="margin-right: 10px;" v-on:click="toggleBask()">
+        <img src="img/basketball.png" alt="App Logo" width="30" :class="[showBask?'sport-icon':'']"><!-- Basketball icon -->
 
             </div>
-    <div class="col-2 text-center" style="margin-right: 10px;">
-                <img src="img/cricket.png" alt="App Logo" width="30"><!-- Baseball icon -->
+    <div class="col-2 text-center" style="margin-right: 10px;" v-on:click="toggleCric()">
+        <img src="img/cricket.png" alt="App Logo" width="30" :class="[showCric?'sport-icon':'']"><!-- Baseball icon -->
 
             </div>
-    <div class="col-2 text-center" style="margin-right: 10px;">
-        <img src="img/tennis_new.png" alt="App Logo" width="30"><!-- Hockey icon -->
+    <div class="col-2 text-center" style="margin-right: 10px;" v-on:click="toggleTen()">
+        <img src="img/tennis_new.png" alt="App Logo" width="30" :class="[showTen?'sport-icon':'']"><!-- Hockey icon -->
 
             </div>
-    <div class="col-2 text-right">
-                <img src="img/f1_new.png" alt="App Logo" width="30"><!-- Table Tennis icon -->
+    <div class="col-2 text-right" v-on:click="toggleF1()">
+        <img src="img/f1_new.png" alt="App Logo" width="30" :class="[showF1?'sport-icon':'']"><!-- Table Tennis icon -->
 
             </div>
   
@@ -37,8 +37,8 @@
 
 <div class="standings-container">
 
-<table class="table table-bordered standings-table">
-    <h3>Premier League</h3>
+<table class="table table-bordered standings-table" v-if="showFoot">
+    <h3 v-if="showFoot">Premier League</h3>
     <thead>
         <tr>
             <th></th>
@@ -94,8 +94,8 @@
 </table>
 
 
-<table class="table table-bordered standings-table">
-    <h3>NBA</h3>
+    <table class="table table-bordered standings-table" v-if="showBask">
+        <h3 v-if="showBask">NBA</h3>
     <thead>
         <tr>
             <th></th>
@@ -144,8 +144,8 @@
     </tbody>
 </table>
 
-<table class="table table-bordered standings-table">
-    <h3>IPL</h3>
+    <table class="table table-bordered standings-table" v-if="showCric">
+        <h3 v-if="showCric">IPL</h3>
     <thead>
         <tr>
             <th></th>
@@ -200,8 +200,8 @@
     </tbody>
     </table>
 
-    <table class="table table-bordered standings-table">
-        <h3>Tennis</h3>
+    <table class="table table-bordered standings-table" v-if="showTen">
+        <h3 v-if="showTen">Tennis</h3>
         <thead>
             <tr>
                 <th></th>
@@ -230,8 +230,8 @@
             </tr>
             
     </table>
-    <table class="table table-bordered standings-table">
-        <h3>F1</h3>
+    <table class="table table-bordered standings-table" v-if="showF1">
+        <h3 v-if="showF1">F1</h3>
         <thead>
             <tr>
                 <th></th>
