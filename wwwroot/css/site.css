@@ -163,3 +163,16 @@ body {
     position: absolute;
     justify-content: center;
 }
+
+.calendar-tab {
+    position:absolute;
+    top:150px;
+    left:40px;
+    background:none;
+
+}
+
+.sports-button {
+    background-color: white;
+    border: none;
+}
