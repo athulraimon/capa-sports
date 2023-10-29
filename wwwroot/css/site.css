@@ -192,19 +192,21 @@ body {
 
 }
 
-<!-- .scorecards {
+.scorecards {
     position: fixed;
     top: 150px;
-    left: 70px;
+    left: 60px;
     width: 60%;
     height: 200px;
     background-color: white;
-    text-align: center;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .scorecards-box {
     border: 1px solid black;
-    padding: 10px;
+    padding: 5px;
     margin: 10px;
-    
 }
