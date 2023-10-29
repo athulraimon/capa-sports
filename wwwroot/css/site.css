@@ -184,3 +184,27 @@ body {
     padding: 5px; /* Adjust the padding as needed */
     background-color: darkgray;
 }
+
+.score-football {
+  
+    width: 300px;
+    float: left;
+
+}
+
+<!-- .scorecards {
+    position: fixed;
+    top: 150px;
+    left: 70px;
+    width: 60%;
+    height: 200px;
+    background-color: white;
+    text-align: center;
+}
+
+.scorecards-box {
+    border: 1px solid black;
+    padding: 10px;
+    margin: 10px;
+    
+}
