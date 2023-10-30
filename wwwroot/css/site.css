@@ -209,4 +209,44 @@ body {
     border: 1px solid black;
     padding: 5px;
     margin: 10px;
+   
+}
+
+
+.nba-header {
+    color: blue;
+    #border-bottom: 1px solid black;
+}
+
+.premier-league-header {
+    color: rebeccapurple;
+    #border-bottom: 1px solid black;
+}
+.cricket-header {
+    color: lightskyblue;
+    
+}
+.tennis-header {
+    color: indianred;
+}
+.scorecards h3.nba-header {
+    box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.01);
+    width: max-content;
+    height: max-content;
+    color: white;
+    background-color: dodgerblue;
+}
+.scorecards h3.cricket-header {
+    box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.01);
+    width: max-content;
+    height: max-content;
+    color: white;
+    background-color: lightskyblue;
+}
+.scorecards h3.premier-league-header {
+    box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.01);
+    width: max-content;
+    height: max-content;
+    color: white;
+    background-color: rebeccapurple;
 }
