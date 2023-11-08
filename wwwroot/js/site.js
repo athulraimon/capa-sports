@@ -24,28 +24,88 @@ const landing = {
     el: '#capa',
     data() {
         return {
-            showFoot: true,
-            showCric: true,
-            showBask: true,
-            showTen: true,
-            showF1: true
+            showFoot: -1,
+            showCric: -1,
+            showBask: -1,
+            showTen: -1,
+            showF1: -1
         }
     },
     methods: {
         toggleFoot() {
-            this.showFoot = !this.showFoot;
+            if (this.showFoot == -1) {
+                this.showFoot = 1;
+                this.showCric = 0;
+                this.showBask = 0;
+                this.showTen = 0;
+                this.showF1 = 0;
+            }
+            else if (this.showFoot == 0) {
+                this.showFoot = 1;
+            }
+            else {
+                this.showFoot = 0;
+            }
         },
         toggleCric() {
-            this.showCric = !this.showCric;
+            if (this.showCric == -1) {
+                this.showFoot = 0;
+                this.showCric = 1;
+                this.showBask = 0;
+                this.showTen = 0;
+                this.showF1 = 0;
+            }
+            else if (this.showCric == 0) {
+                this.showCric = 1;
+            }
+            else {
+                this.showCric = 0;
+            }
         },
         toggleBask() {
-            this.showBask = !this.showBask;
+            if (this.showBask == -1) {
+                this.showFoot = 0;
+                this.showCric = 0;
+                this.showBask = 1;
+                this.showTen = 0;
+                this.showF1 = 0;
+            }
+            else if (this.showBask == 0) {
+                this.showBask = 1;
+            }
+            else {
+                this.showBask = 0;
+            }
         },
         toggleTen() {
-            this.showTen = !this.showTen;
+            if(this.showTen == -1) {
+                this.showFoot = 0;
+                this.showCric = 0;
+                this.showBask = 0;
+                this.showTen = 1;
+                this.showF1 = 0;
+            }
+            else if(this.showTen == 0) {
+                this.showTen = 1;
+            }
+            else {
+                this.showTen = 0;
+}
         },
         toggleF1() {
-            this.showF1 = !this.showF1;
+            if (this.showF1 == -1) {
+                this.showFoot = 0;
+                this.showCric = 0;
+                this.showBask = 0;
+                this.showTen = 0;
+                this.showF1 = 1;
+            }
+            else if (this.showF1 == 0) {
+                this.showF1 = 1;
+            }
+            else {
+                this.showF1 = 0;
+            }
         },
 
     }

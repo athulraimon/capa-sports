@@ -2,32 +2,34 @@
     <div class="banner text-center  " style="background-color: black">
         <img src="img/app-logo.png" alt="App Logo" >
     </div>
-    
-    
-    <div class="sports row ">
+
+
+<div class="sports row ">
 
 
 
     <div class="col-2 text-center" style="margin-right: 10px;" v-on:click="toggleFoot()">
-        <img src="img/football.png" alt="App Logo" width="30" :class="[showFoot?'sport-icon':'']"> <!-- Football icon -->
+        <img src="img/football.png" alt="App Logo" width="30" :class="[showFoot==1?'sport-icon':'']"> <!-- Football icon -->
 
     </div>
     <div class="col-2 text-center" style="margin-right: 10px;" v-on:click="toggleBask()">
-        <img src="img/basketball.png" alt="App Logo" width="30" :class="[showBask?'sport-icon':'']"><!-- Basketball icon -->
+        <img src="img/basketball.png" alt="App Logo" width="30" :class="[showBask==1?'sport-icon':'']"><!-- Basketball icon -->
 
     </div>
     <div class="col-2 text-center" style="margin-right: 10px;" v-on:click="toggleCric()">
-        <img src="img/cricket.png" alt="App Logo" width="30" :class="[showCric?'sport-icon':'']"><!-- Baseball icon -->
+        <img src="img/cricket.png" alt="App Logo" width="30" :class="[showCric==1?'sport-icon':'']"><!-- Baseball icon -->
 
     </div>
     <div class="col-2 text-center" style="margin-right: 10px;" v-on:click="toggleTen()">
-        <img src="img/tennis_new.png" alt="App Logo" width="30" :class="[showTen?'sport-icon':'']"><!-- Hockey icon -->
+        <img src="img/tennis_new.png" alt="App Logo" width="30" :class="[showTen==1?'sport-icon':'']"><!-- Hockey icon -->
 
     </div>
     <div class="col-2 text-right" v-on:click="toggleF1()">
-        <img src="img/f1_new.png" alt="App Logo" width="30" :class="[showF1?'sport-icon':'']"><!-- Table Tennis icon -->
+        <img src="img/f1_new.png" alt="App Logo" width="30" :class="[showF1==1?'sport-icon':'']"><!-- Table Tennis icon -->
 
     </div>
+
+</div>
 
 </div>
 <!--div class = "scorecards">
@@ -37,8 +39,9 @@
   <p>The match will be played today at 7:30 pm</p>
    </div-->
 <div class="scorecards">
-  <h3><span class="premier-league-header">PRIEMERE LEAGUE</span></h3>
-  <div class="scorecards-box">
+  
+    <h3><span class="premier-league-header" v-if="showFoot">PREMIER LEAGUE</span></h3>
+    <div class="scorecards-box" v-if="showFoot">
     <table style="width: 100%">
       <tr>
         <th>Team</th>
@@ -55,8 +58,8 @@
     </table>
   </div>
 
-  <h3><span class="nba-header">NBA</span></h3>
-  <div class="scorecards-box">
+    <h3><span class="nba-header" v-if="showBask">NBA</span></h3>
+    <div class="scorecards-box" v-if="showBask">
     <table style="width: 100%">
       <tr>
         <th>Team</th>
@@ -73,8 +76,8 @@
     </table>
   </div>
 
-  <h3><span class ="cricket-header">ICC</span></h3>
-  <div class="scorecards-box">
+  <h3><span class ="cricket-header" v-if="showCric">ICC</span></h3>
+    <div class="scorecards-box" v-if="showCric">
     <table style="width: 100%" >
       <tr>
         <th>Team</th>
@@ -91,8 +94,8 @@
     </table>
   </div>
 
-  <h3><span class = "tennis-header">Tennis(Roland Garros)</span></h3>
-  <div class="scorecards-box">
+    <h3><span class="tennis-header" v-if="showTen">Tennis(Roland Garros)</span></h3>
+    <div class="scorecards-box" v-if="showTen">
     <table style="width: 100%">
       <tr>
         <th>Player</th>

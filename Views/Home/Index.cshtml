@@ -9,23 +9,23 @@
 
 
     <div class="col-2 text-center" style="margin-right: 10px;" v-on:click="toggleFoot()">
-        <img src="img/football.png" alt="App Logo" width="30" :class="[showFoot?'sport-icon':'']"> <!-- Football icon -->
+        <img src="img/football.png" alt="App Logo" width="30" :class="[showFoot==1?'sport-icon':'']"> <!-- Football icon -->
 
     </div>
     <div class="col-2 text-center" style="margin-right: 10px;" v-on:click="toggleBask()">
-        <img src="img/basketball.png" alt="App Logo" width="30" :class="[showBask?'sport-icon':'']"><!-- Basketball icon -->
+        <img src="img/basketball.png" alt="App Logo" width="30" :class="[showBask==1?'sport-icon':'']"><!-- Basketball icon -->
 
     </div>
     <div class="col-2 text-center" style="margin-right: 10px;" v-on:click="toggleCric()">
-        <img src="img/cricket.png" alt="App Logo" width="30" :class="[showCric?'sport-icon':'']"><!-- Baseball icon -->
+        <img src="img/cricket.png" alt="App Logo" width="30" :class="[showCric==1?'sport-icon':'']"><!-- Baseball icon -->
 
     </div>
     <div class="col-2 text-center" style="margin-right: 10px;" v-on:click="toggleTen()">
-        <img src="img/tennis_new.png" alt="App Logo" width="30" :class="[showTen?'sport-icon':'']"><!-- Hockey icon -->
+        <img src="img/tennis_new.png" alt="App Logo" width="30" :class="[showTen==1?'sport-icon':'']"><!-- Hockey icon -->
 
     </div>
     <div class="col-2 text-right" v-on:click="toggleF1()">
-        <img src="img/f1_new.png" alt="App Logo" width="30" :class="[showF1?'sport-icon':'']"><!-- Table Tennis icon -->
+        <img src="img/f1_new.png" alt="App Logo" width="30" :class="[showF1==1?'sport-icon':'']"><!-- Table Tennis icon -->
 
     </div>
 
