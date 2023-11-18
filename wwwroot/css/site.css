@@ -210,7 +210,7 @@ body {
 
 .scorecards-box {
     border: 1px solid black;
-    width:250px;
+    width:325px;
     padding: 5px;
     margin: 10px;
    
@@ -253,4 +253,17 @@ body {
     height: max-content;
     color: white;
     background-color: rebeccapurple;
+}
+
+.scorecards-box img {
+    width:31px;
+    height:31px;
+}
+
+.scorecards-box th {
+    font-size: 12px;
+}
+
+.f1-header {
+    color: orangered;
 }

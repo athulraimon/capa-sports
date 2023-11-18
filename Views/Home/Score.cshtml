@@ -31,7 +31,6 @@
 
 </div>
 
-</div>
 <!--div class = "scorecards">
 
     <img src="img/P_league.png" class="score-football" alt="Arsenal vs Sheffield United soccer game">
@@ -40,78 +39,121 @@
    </div-->
 <div class="scorecards">
   
-    <h3><span class="premier-league-header" v-if="showFoot">PREMIER LEAGUE</span></h3>
-    <div class="scorecards-box" v-if="showFoot">
+    <h3><span class="nba-header" v-if="showBask">Basketball</span></h3>
+    <div v-for="f in basketballScores" class="scorecards-box" v-if="showBask">
+        <table style="width: 100%">
+            <h7>{{f.tournament}}</h7>
+          <tr>
+                <th style="width:70px;"></th>
+                <th style="width:150px;">Team</th>
+                <th style="width:50px;">Score</th>
+          </tr>
+          <tr>
+              <td><img :src="f.homeImg" /></td>
+            <td>{{f.home}}</td>
+            <td>{{f.homeScore}}</td>
+          </tr>
+          <tr>
+                <td><img :src="f.awayImg" /></td>
+            <td>{{f.away}}</td>
+            <td>{{f.awayScore}}</td>
+          </tr>
+    </table>
+  </div>
+
+    <h3><span class="premier-league-header" v-if="showFoot">Football</span></h3>
+    <div v-for="f in footballScores" class="scorecards-box" v-if="showFoot">
     <table style="width: 100%">
+       <h7>{{f.tournament}}</h7>
+       <tr>
+         <th style="width:70px;"></th>
+         <th style="width:150px;">Team</th>
+         <th style="width:50px;">Score</th>
+       </tr>
       <tr>
-        <th>Team</th>
-        <th>Score</th>
+        <td><img :src="f.homeImg" /></td>
+        <td>{{f.home}}</td>
+        <td>{{f.homeScore}}</td>
       </tr>
       <tr>
-        <td>Arsenal</td>
-        <td>2</td>
-      </tr>
-      <tr>
-        <td>Man United</td>
-        <td>1</td>
+        <td><img :src="f.awayImg" /></td>
+        <td>{{f.away}}</td>
+        <td>{{f.awayScore}}</td>
       </tr>
     </table>
   </div>
 
-    <h3><span class="nba-header" v-if="showBask">NBA</span></h3>
-    <div class="scorecards-box" v-if="showBask">
-    <table style="width: 100%">
-      <tr>
-        <th>Team</th>
-        <th>Score</th>
-      </tr>
-      <tr>
-        <td>GSW</td>
-        <td>110</td>
-      </tr>
-      <tr>
-        <td>LAL</td>
-        <td>100</td>
-      </tr>
-    </table>
-  </div>
-
-  <h3><span class ="cricket-header" v-if="showCric">ICC</span></h3>
-    <div class="scorecards-box" v-if="showCric">
+  <h3><span class ="cricket-header" v-if="showCric">Cricket</span></h3>
+    <div v-for ="f in cricketScores" class="scorecards-box" v-if="showCric">
     <table style="width: 100%" >
+      <h7>{{f.tournament}}</h7>
       <tr>
-        <th>Team</th>
-        <th>Score</th>
+      <th style="width:70px;"></th>
+      <th style="width:150px;">Team</th>
+      <th style="width:50px;">Score</th>
       </tr>
       <tr>
-        <td>Ind</td>
-        <td>110/5 (50)</td>
+        <td><img :src="f.homeImg"/></td>
+        <td>{{f.homeTeam}}</td>
+        <td>{{f.homeRuns}}/{{f.homeWickets}} ({{f.homeOvers}})</td>
       </tr>
       <tr>
-        <td>Eng</td>
-        <td>107    (30.5)</td>
+        <td><img :src="f.awayImg" /></td>
+        <td>{{f.awayTeam}}</td>
+        <td>{{f.awayRuns}}/{{f.awayWickets}} ({{f.awayOvers}})</td>
       </tr>
     </table>
   </div>
 
-    <h3><span class="tennis-header" v-if="showTen">Tennis(Roland Garros)</span></h3>
-    <div class="scorecards-box" v-if="showTen">
+    <h3><span class="tennis-header" v-if="showTen">Tennis</span></h3>
+    <div v-for="f in tennisScores" class="scorecards-box" v-if="showTen">
     <table style="width: 100%">
       <tr>
+        <th></th>
         <th>Player</th>
         <th>Score</th>
+        <th></th>
       </tr>
       <tr>
-        <td>Nad</td>
-        <td>7 5 7 </td>
+        <td><img :src="f.homeImg" /></td>
+        <td>{{f.homeTeam}}</td>
+        <td>{{f.homePoint}} </td>
+        <td>{{f.homeScore}}</td>
       </tr>
       <tr>
-        <td>Djo</td>
-        <td>5 7 5 </td>
+        <td><img :src="f.awayImg" /></td>
+        <td>{{f.awayTeam}}</td>
+        <td>{{f.awayPoint}}</td>
+        <td>{{f.awayScore}}</td>
       </tr>
     </table>
-    WINNER : RAFAEL NADAL
   </div>
+
+
+    <h3><span class="f1-header" v-if="showF1">F1</span></h3>
+    <div class="scorecards-box" v-if="showF1">
+        <table style="width: 100%">
+            <tr>
+                <th></th>
+                <th>Driver</th>
+                <th>Time</th>
+                <th>Points</th>
+
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Max</td>
+                <td>1.05</td>
+                <td>256</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Charles</td>
+                <td>2</td>
+                <td>300</td>
+            </tr>
+        </table>
+    </div>
 </div>
 
 
