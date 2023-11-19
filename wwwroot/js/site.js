@@ -32,7 +32,14 @@ const landing = {
             footballScores: [],
             basketballScores: [],
             cricketScores: [],
-            tennisScores:[]
+            tennisScores: [],
+            f1Table: [],
+            footballTable: [],
+            eastBasketballTable: [],
+            westBasketballTable: [],
+            cricketTable: [],
+            tennisTable: [],
+            selectedConference: 'east',
         }
     },
     methods: {
@@ -180,14 +187,27 @@ const landing = {
 
             const formattedEvents = [];
             for (const match of response.events) {
-            if ('point' in match.homeScore) {
+
                 const tournament = match.tournament.name;
                 const homeTeam = match.homeTeam.name;
                 const awayTeam = match.awayTeam.name;
-                const homeScore = match.homeScore.current;
-                const homePoint = match.homeScore.point;
-                const awayScore = match.awayScore.current;
-                const awayPoint = match.awayScore.point;
+                const homeScore = match.homeScore.current || '';
+                const homePoint = match.homeScore.point || '';
+                const awayScore = match.awayScore.current || '';
+                const awayPoint = match.awayScore.point || '';
+                var homePeriod1 = match.homeScore.period1 || '';
+                var homePeriod2 = match.homeScore.period2 || '';
+                var homePeriod3 = match.homeScore.period3 || '';
+                var homePeriod4 = match.homeScore.period4 || '';
+                var homePeriod5 = match.homeScore.period5 || '';
+                var awayPeriod1 = match.awayScore.period1 || '';
+                var awayPeriod2 = match.awayScore.period2 || '';
+                var awayPeriod3 = match.awayScore.period3 || '';
+                var awayPeriod4 = match.awayScore.period4 || '';
+                var awayPeriod5 = match.awayScore.period5 || '';
+
+
+
                 const homeId = match.homeTeam.id;
                 const awayId = match.awayTeam.id;
                 const homeImg = this.getTeamImageURL(homeId);
@@ -195,14 +215,168 @@ const landing = {
 
                 formattedEvents.push({
                     tournament,
-                    homeTeam, homeScore, homePoint, homeImg,
-                    awayTeam, awayScore, awayPoint, awayImg
+                    homeTeam, homeScore, homePoint, homeImg, homePeriod1, homePeriod2, homePeriod3, homePeriod4, homePeriod5,
+                    awayTeam, awayScore, awayPoint, awayImg, awayPeriod1, awayPeriod2, awayPeriod3, awayPeriod4, awayPeriod5
+                });
+
+            }
+            this.tennisScores = formattedEvents;
+            console.log(formattedEvents[0]);
+
+
+        },
+        
+        formatF1Table(response) {
+            const formattedEvents = [];
+            for (const player of response.standings) {
+                let name = player.team.name;
+                let teamName = player.team.parentTeam.name;
+                if (!('victories' in player)) {
+                    player.victories = 0;
+                }
+                if (!('podiums' in player)) {
+                    player.podiums = 0;
+                }
+                if (!('points' in player)) {
+                    player.points = 0;
+                }
+
+                const wins = player.victories;
+                const podiums = player.podiums;
+                const points = player.points;
+                const position = player.position;
+                const playerId = player.team.id;
+                const playerImg = this.getTeamImageURL(playerId);
+
+                formattedEvents.push({
+                    position,
+                    name,
+                    teamName,
+                    wins,
+                    podiums,
+                    points,
+                    playerImg
                 });
             }
-        }
-        this.tennisScores = formattedEvents;
-        console.log(this.tennisScores[0]);
+            this.f1Table = formattedEvents;
+            console.log(formattedEvents[0]);
+        },
 
+        formatTennisTable(response) {
+            var i = 0;
+            const formattedEvents = [];
+            for (const player of response.rankings) {
+                const rank = player.ranking;
+                const playerName = player.rowName;
+                const country = player.team.country.name;
+                const points = player.points;
+
+                const playerId = player.team.id;
+                const playerImg = this.getTeamImageURL(playerId);
+
+                i = i + 1;
+
+                formattedEvents.push({
+                    rank, playerName, country, points, playerImg
+                });
+
+                if (i == 50) {
+                    break;
+                }
+            }
+            this.tennisTable = formattedEvents;
+            console.log(formattedEvents[0]);
+        },
+
+        formatFootballTable(response) {
+            const formattedEvents = [];
+            for (const standing of response.standings) {
+                const tournament = standing.name;
+
+                for (const event of standing.rows) {
+                    const teamName = event.team.name;
+                    const position = event.position;
+                    const wins = event.wins;
+                    const played = event.matches;
+                    const losses = event.losses;
+                    const draws = event.draws;
+                    const points = event.points;
+
+                    const teamId = event.team.id;
+                    const teamImg = this.getTeamImageURL(teamId);
+
+                    formattedEvents.push({
+                        position, teamName, played, wins, losses, draws, points, teamImg
+                    });
+                }
+            }
+            this.footballTable = formattedEvents;
+            console.log(formattedEvents[0]);
+        },
+
+        formatCricketTable(response) {
+            const standing = response.standings;
+            formattedEvents = [];
+            for (const team of standing[0].rows) {
+                const pos = team.position;
+                const teamName = team.team.name;
+                const matches = team.matches;
+                const wins = team.wins;
+                const losses = team.losses;
+                const NRR = team.netRunRate;
+
+                const teamId = team.team.id;
+                const teamImg = this.getTeamImageURL(teamId);
+
+                formattedEvents.push({
+                    pos, teamName, matches, wins, losses, NRR, teamImg
+                });
+            }
+            this.cricketTable = formattedEvents;
+            console.log(formattedEvents[0]);
+
+        },
+
+        formatBasketballTable(response) {
+
+            const easternConference = [];
+            const east = response['standings'][0];  // 0->Eastern Conference, 1->Western Conference 2,3,4->Central div........
+            for (const team of east.rows) {
+                const pos = team.position;
+                const teamName = team.team.name;
+                const wins = team.wins;
+                const losses = team.losses;
+                const gb = team.gamesBehind;
+
+                const teamId = team.team.id;
+                const teamImg = this.getTeamImageURL(teamId);
+
+                easternConference.push({
+                    pos, teamName, wins, losses, gb, teamImg
+                });
+            }
+
+            const westernConference = [];
+
+            const west = response['standings'][1];  // 0->Eastern Conference, 1->Western Conference 2,3,4->Central div........
+            for (const team of west.rows) {
+                const pos = team.position;
+                const teamName = team.team.name;
+                const wins = team.wins;
+                const losses = team.losses;
+                const gb = team.gamesBehind;
+
+                const teamId = team.team.id;
+                const teamImg = this.getTeamImageURL(teamId);
+
+                westernConference.push({
+                    pos, teamName, wins, losses, gb, teamImg
+                });
+            }
+            this.eastBasketballTable = easternConference;
+            this.westBasketballTable = westernConference;
+            console.log(easternConference[0]);
+            console.log(westernConference[0]);
         },
 
         toggleFoot() {
@@ -288,6 +462,11 @@ const landing = {
         this.fetchData(this.formatFootballScore, 'https://api.sofascore.com/api/v1/sport/football/events/live');
         this.fetchData(this.formatCricketScore, 'https://api.sofascore.com/api/v1/sport/cricket/events/live');
         this.fetchData(this.formatTennisScore, 'https://api.sofascore.com/api/v1/sport/tennis/events/live');
+        this.fetchData(this.formatF1Table, 'https://api.sofascore.com/api/v1/stage/203647/standings/competitor');
+        this.fetchData(this.formatTennisTable, 'https://api.sofascore.com/api/v1/rankings/type/5');
+        this.fetchData(this.formatFootballTable, 'https://api.sofascore.com/api/v1/unique-tournament/17/season/52186/standings/total');
+        this.fetchData(this.formatCricketTable, 'https://api.sofascore.com/api/v1/unique-tournament/20661/season/52509/standings/total');
+        this.fetchData(this.formatBasketballTable, 'https://api.sofascore.com/api/v1/unique-tournament/132/season/54105/standings/total');
 
 
     }

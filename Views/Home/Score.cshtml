@@ -110,21 +110,33 @@
     <table style="width: 100%">
       <tr>
         <th></th>
-        <th>Player</th>
+        <th style="width:150px;">Player</th>
+        <th style="width:15px;"></th>
+        <th style="width:15px;"></th>
+        <th style="width:15px;"></th>
+        <th style="width:15px;"></th>
+        <th style="width:15px;"></th>
         <th>Score</th>
-        <th></th>
       </tr>
       <tr>
         <td><img :src="f.homeImg" /></td>
         <td>{{f.homeTeam}}</td>
-        <td>{{f.homePoint}} </td>
-        <td>{{f.homeScore}}</td>
+        <td>{{f.homePeriod1}} </td>
+        <td>{{f.homePeriod2}}</td>
+        <td>{{f.homePeriod3}}</td>
+        <td>{{f.homePeriod4}}</td>
+        <td>{{f.homePeriod5}}</td>
+        <td>{{f.homePoint}}</td>
       </tr>
       <tr>
         <td><img :src="f.awayImg" /></td>
         <td>{{f.awayTeam}}</td>
+        <td>{{f.awayPeriod1}} </td>
+        <td>{{f.awayPeriod2}}</td>
+        <td>{{f.awayPeriod3}}</td>
+        <td>{{f.awayPeriod4}}</td>
+        <td>{{f.awayPeriod5}}</td>
         <td>{{f.awayPoint}}</td>
-        <td>{{f.awayScore}}</td>
       </tr>
     </table>
   </div>

@@ -39,115 +39,77 @@
 
 <table class="table table-bordered standings-table" v-if="showFoot==-1||showFoot==1">
         <h3 v-if="showFoot==-1||showFoot==1">Premier League</h3>
-    <thead>
         <tr>
+            <th style="width:10px;"></th>
             <th></th>
-            <th>Team</th>
+            <th style="width:30px;">Team</th>
             <th>W</th>
             <th>D</th>
             <th>L</th>
             <th>P</th>
         </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>1</td>
-            <td>Team A</td>
-            <td>12</td>
-            <td>5</td>
-            <td>3</td>
-            <td>36</td>
+        <tr v-for="(f,index) in footballTable">
+            <td style="width:10px;">{{index+1}}</td>
+            <td><img :src="f.teamImg"/></td>
+            <td style="width:30px;">{{f.teamName}}</td>
+            <td>{{f.wins}}</td>
+            <td>{{f.draws}}</td>
+            <td>{{f.losses}}</td>
+            <td>{{f.points}}</td>
         </tr>
-        <tr>
-            <td>2</td>
-            <td>Team B</td>
-            <td>11</td>
-            <td>5</td>
-            <td>4</td>
-            <td>33</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>Team C</td>
-            <td>10</td>
-            <td>5</td>
-            <td>5</td>
-            <td>30</td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td>Team D</td>
-            <td>9</td>
-            <td>5</td>
-            <td>6</td>
-            <td>27</td>
-        </tr>
-        <tr>
-            <td>5</td>
-            <td>Team E</td>
-            <td>8</td>
-            <td>5</td>
-            <td>7</td>
-            <td>24</td>
-        </tr>
-    </tbody>
 </table>
 
-
-    <table class="table table-bordered standings-table" v-if="showBask==-1||showBask==1">
-        <h3 v-if="showBask==-1||showBask==1">NBA</h3>
-    <thead>
+    <div class="nbaSelect" v-if="showBask==-1||showBask==1">
+        <label for="conferenceDropdown">Select Conference:</label>
+        <select v-model="selectedConference" id="conferenceDropdown">
+            <option value="east">Eastern Conference</option>
+            <option value="west">Western Conference</option>
+        </select>
+        <table class="table table-bordered standings-table" v-if="selectedConference == 'east'">
+            <h3 v-if="selectedConference == 'east'">Eastern Conference</h3>
         <tr>
+            <th></th>
             <th></th>
             <th>Team</th>
             <th>W</th>
             <th>L</th>
-            <th>S</th>
+            <th>GB</th>
         </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>1</td>
-            <td>Team A</td>
-            <td>12</td>
-            <td>5</td>
-            <td>3</td>
+        <tr v-for="(f,index) in eastBasketballTable">
+            <td>{{index+1}}</td>
+            <td><img :src="f.teamImg" /></td>
+            <td>{{f.teamName}}</td>
+            <td>{{f.wins}}</td>
+            <td>{{f.losses}}</td>
+            <td>{{f.gb}}</td>
         </tr>
-        <tr>
-            <td>2</td>
-            <td>Team B</td>
-            <td>11</td>
-            <td>5</td>
-            <td>4</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>Team C</td>
-            <td>10</td>
-            <td>5</td>
-            <td>5</td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td>Team D</td>
-            <td>9</td>
-            <td>5</td>
-            <td>6</td>
-        </tr>
-        <tr>
-            <td>5</td>
-            <td>Team E</td>
-            <td>8</td>
-            <td>5</td>
-            <td>7</td>
-        </tr>
-    </tbody>
 </table>
+        <table class="table table-bordered standings-table" v-if="selectedConference == 'west'">
+            <h3 v-if="selectedConference == 'west'">Western Conference</h3>
+        <tr>
+            <th></th>
+            <th></th>
+            <th>Team</th>
+            <th>W</th>
+            <th>L</th>
+            <th>GB</th>
+        </tr>
+        <tr v-for="(f,index) in westBasketballTable">
+            <td>{{index+1}}</td>
+            <td><img :src="f.teamImg" /></td>
+            <td>{{f.teamName}}</td>
+            <td>{{f.wins}}</td>
+            <td>{{f.losses}}</td>
+            <td>{{f.gb}}</td>
+        </tr>
+    </table>
+    </div>
+
 
     <table class="table table-bordered standings-table" v-if="showCric==-1||showCric==1">
-        <h3 v-if="showCric==-1||showCric==1">IPL</h3>
-    <thead>
+        <h3 v-if="showCric==-1||showCric==1">ICC</h3>
         <tr>
+            <th></th>
             <th></th>
             <th>Team</th>
             <th>M</th>
@@ -155,85 +117,38 @@
             <th>L</th>
             <th>NRR</th>
         </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>1</td>
-            <td>Team A</td>
-            <td>12</td>
-            <td>5</td>
-            <td>3</td>
-                <td>3</td>
+        <tr v-for="(f,index) in cricketTable">
+            <td>{{index+1}}</td>
+            <td><img :src="f.teamImg" /></td>
+            <td>{{f.teamName}}</td>
+            <td>{{f.matches}}</td>
+            <td>{{f.wins}}</td>
+            <td>{{f.losses}}</td>
+            <td>{{f.NRR}}</td>
         </tr>
-        <tr>
-            <td>2</td>
-            <td>Team B</td>
-            <td>11</td>
-            <td>5</td>
-            <td>4</td>
-                <td>3</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>Team C</td>
-            <td>10</td>
-            <td>5</td>
-            <td>5</td>
-                <td>3</td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td>Team D</td>
-            <td>9</td>
-            <td>5</td>
-            <td>6</td>
-                <td>3</td>
-        </tr>
-        <tr>
-            <td>5</td>
-            <td>Team E</td>
-            <td>8</td>
-            <td>5</td>
-            <td>7</td>
-                <td>3</td>
-        </tr>
-    </tbody>
     </table>
 
     <table class="table table-bordered standings-table" v-if="showTen==-1||showTen==1">
         <h3 v-if="showTen==-1||showTen==1">Tennis</h3>
-        <thead>
             <tr>
+                <th></th>
                 <th></th>
                 <th>Name</th>
                 <th>Points</th>
                
             </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>1</td>
-                <td>Team A</td>
-                <td>12</td>
-        
-            <tr>
-                <td>2</td>
-                <td>Team B</td>
-                <td>11</td>
-               
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>Team C</td>
-                <td>10</td>
- 
+            <tr v-for="(f,index) in tennisTable">
+                <td>{{index+1}}</td>
+                <td><img :src="f.playerImg" /></td>
+                <td>{{f.playerName}}</td>
+                <td>{{f.points}}</td>
             </tr>
             
     </table>
-    <table class="table table-bordered standings-table" v-if="showF1==-1||shwoF1==0">
-        <h3 v-if="showF1==-1||shwoF1==0">F1</h3>
-        <thead>
+    <table class="table table-bordered standings-table" v-if="showF1==-1||showF1==1">
+        <h3 v-if="showF1==-1||showF1==1">F1</h3>
             <tr>
+                <th style="width:10px;"></th>
                 <th></th>
                 <th>Driver</th>
                 <th>P</th>
@@ -241,26 +156,14 @@
                 <th>P</th>
 
             </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>1</td>
-                <td>Team A</td>
-                <td>12</td>
-
-            <tr>
-                <td>2</td>
-                <td>Team B</td>
-                <td>11</td>
-
+            <tr v-for="(f,index) in f1Table">
+                <td style="width:10px;">{{index+1}}</td>
+                <td><img :src="f.playerImg"/></td>
+                <td>{{f.name}}</td>
+                <td>{{f.points}}</td>
+                <td>{{f.wins}}</td>
+                <td>{{f.podiums}}</td>
             </tr>
-            <tr>
-                <td>3</td>
-                <td>Team C</td>
-                <td>10</td>
-
-            </tr>
-
     </table>
 </div>
     
