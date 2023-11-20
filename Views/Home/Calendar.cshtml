@@ -33,15 +33,110 @@
 
 
     <!-- ... Your existing sports icons ... -->
-    <div class="calendar-tab ">
+    <div class="calendar-tab">
         <div class="col-2 text-center" style="flex:1">
-            <button class="sports-button">Upcoming</button>
+            <button class="sports-button" v-on:click="selectUpcoming">Upcoming</button>
         </div>
     
         <div class="col-2 text-center" style="flex:1">
-            <button class="sports-button">Recent</button>
+            <button class="sports-button" v-on:click="selectRecent">Recent</button>
         </div>
     </div>  
+
+    <div class="calendarcards upcoming" v-if="showUpcoming">
+            <h3><span class="nba-header" v-if="showBask">Basketball</span></h3>
+            <div v-for="f in basketballUpcoming" class="scorecards-box" v-if="showBask">
+                <table style="width: 100%">
+                    <h7>{{f.tournament}}</h7>
+                    <tr>
+                        <th style="width:70px;"></th>
+                        <th style="width:150px;">Team</th>
+                        <th style="width:50px;"></th>
+                    </tr>
+                    <tr>
+                        <td><img :src="f.homeImg" /></td>
+                        <td>{{f.homeTeam}}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><img :src="f.awayImg" /></td>
+                        <td>{{f.awayTeam}}</td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+
+            <h3><span class="premier-league-header" v-if="showFoot">Football</span></h3>
+            <div v-for="f in footballUpcoming" class="scorecards-box" v-if="showFoot">
+                <table style="width: 100%">
+                    <h7>{{f.tournament}}</h7>
+                    <tr>
+                        <th style="width:40px;"></th>
+                        <th style="width:150px;"></th>
+                        <th style="width:50px;"></th>
+                    </tr>
+                    <tr>
+                        <td><img :src="f.homeImg" /></td>
+                        <td>{{f.homeTeam}}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><img :src="f.awayImg" /></td>
+                        <td>{{f.awayTeam}}</td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+
+            
+        </div>
+
+        <div class="calendarcards recent" v-if="showRecent">
+            <h3><span class="nba-header" v-if="showBask">Basketball</span></h3>
+            <div v-for="f in basketballRecent" class="scorecards-box" v-if="showBask">
+                <table style="width: 100%">
+                    <h7>{{f.tournament}}</h7>
+                    <tr>
+                        <th style="width:70px;"></th>
+                        <th style="width:150px;">Team</th>
+                        <th style="width:50px;"></th>
+                    </tr>
+                    <tr>
+                        <td><img :src="f.homeImg" /></td>
+                        <td>{{f.homeTeam}}</td>
+                        <td>{{f.homeScore}}</td>
+                    </tr>
+                    <tr>
+                        <td><img :src="f.awayImg" /></td>
+                        <td>{{f.awayTeam}}</td>
+                        <td>{{f.awayScore}}</td>
+                    </tr>
+                </table>
+                <h7>{{f.winnerMsg}}</h7>
+            </div>
+
+            <h3><span class="premier-league-header" v-if="showFoot">Football</span></h3>
+            <div v-for="f in footballRecent" class="scorecards-box" v-if="showFoot">
+                <table style="width: 100%">
+                    <h7>{{f.tournament}}</h7>
+                    <tr>
+                        <th style="width:70px;"></th>
+                        <th style="width:150px;"></th>
+                        <th style="width:50px;"></th>
+                    </tr>
+                    <tr>
+                        <td><img :src="f.homeImg" /></td>
+                        <td>{{f.homeTeam}}</td>
+                        <td>{{f.homeScore}}</td>
+                    </tr>
+                    <tr>
+                        <td><img :src="f.awayImg" /></td>
+                        <td>{{f.awayTeam}}</td>
+                        <td>{{f.awayScore}}</td>
+                    </tr>
+                </table>
+                <h7>{{f.winnerMsg}}</h7>
+    </div>
 
 
     <!-- Start of Navigation Section -->

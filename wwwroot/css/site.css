@@ -177,6 +177,7 @@ body {
     top: 100px;
     position: absolute;
     justify-content: center;
+    
 }
 
 .sports-button {
@@ -202,6 +203,21 @@ body {
     top: 150px;
     left:10px;
     right:200px;
+    width: 100%;
+    max-height: 73%; /* Set a maximum height for scrolling */
+    background-color: white;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-y: auto; /* Enable vertical scrolling when content overflows */
+}
+
+.calendarcards {
+    position: fixed;
+    top: 175px;
+    left: 10px;
+    right: 200px;
     width: 100%;
     max-height: 73%; /* Set a maximum height for scrolling */
     background-color: white;
