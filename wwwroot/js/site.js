@@ -51,12 +51,15 @@ const landing = {
             footballRecent:[],
             basketballUpcoming: [],
             basketballRecent: [],
-            cricketCalendar: [],
-            tennisCalendar: [],
+            cricketRecent: [],
+            cricketUpcoming: [],
+            tennisUpcoming: [],
+            tennisRecent: [],
             currentDate,
             startDate,
             endDate,
             f1Calendar: [],
+            news:[]
 
 
         }
@@ -95,6 +98,71 @@ const landing = {
             catch (error) {
                 console.error('Error fetching data:', error);
             }
+        },
+
+        async fetchCalendarData(callback, url,date) {
+            const options = {
+                method: 'GET',
+                headers: {
+                    authority: 'api.sofascore.com',
+                    accept: '*/*',
+                    'accept-language': 'en-US,en;q=0.8',
+                    'cache-control': 'max-age=0',
+                    'if-none-match': 'W/^\^30ec587741^^',
+                    origin: 'https://www.sofascore.com',
+                    referer: 'https://www.sofascore.com/',
+                    'sec-ch-ua': '^\^Brave^^;v=^\^119^^, ^\^Chromium^^;v=^\^119^^, ^\^Not?A_Brand^^;v=^\^24^^',
+                    'sec-ch-ua-mobile': '?0',
+                    'sec-ch-ua-platform': '^\^Windows^^',
+                    'sec-fetch-dest': 'empty',
+                    'sec-fetch-mode': 'cors',
+                    'sec-fetch-site': 'same-site',
+                    'sec-gpc': '1',
+                    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
+                }
+            };
+
+
+            try {
+                const response = await fetch(url, options)
+                const data = await response.json()
+                callback(data,date);
+            }
+            catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        },
+
+        async fetchNewsData() {
+            const formattedEvents = []
+            let data = [];
+            try {
+                const response = await fetch("https://newsapi.org/v2/top-headlines?country=in&category=sports&apiKey=cb89d562db954214aaee997be7534bb7")
+                data = await response.json()
+                console.log(data);
+                
+            }
+            catch (error) {
+                console.error('Error fetching data:', error);
+            }
+            for (const article of data.articles) {
+                if (article.title !== '[Removed]' && article.urlToImage != null && article.content != null) {
+                    const title = article.title;
+                    const url = article.url;
+                    const image = article.urlToImage;
+                    const passage = article.content;
+                    const indexOfSquareBracket = passage.indexOf('[');
+                    const content = indexOfSquareBracket !== -1
+                        ? passage.substring(0, indexOfSquareBracket)
+                        : passage;
+                    formattedEvents.push({
+                        title, url, content, image
+                    });
+                }
+            }
+            console.log(formattedEvents[0]);
+            this.news = formattedEvents;
+
         },
 
         getTeamImageURL(teamId) {
@@ -398,7 +466,7 @@ const landing = {
             console.log(westernConference[0]);
         },
 
-        formatBasketballUpcoming(response) {
+        formatBasketballUpcoming(response,date) {
             const formattedEvents = [];
             const top_football_leagues = ["NBA"];
 
@@ -422,26 +490,21 @@ const landing = {
                     const awayId = match.awayTeam.id;
                     const homeImg = this.getTeamImageURL(homeId);
                     const awayImg = this.getTeamImageURL(awayId);
-
-                    const matchDate = new Date(timestamp);
-
-
-                    const matchDateString = matchDate.toLocaleDateString('en-US');
-                    console.log(matchDate.toLocaleDateString('en-US'));
-                    const matchDayString = matchDate.toLocaleDateString();
-                    const matchTimeString = matchDate.toLocaleTimeString();
-                    formattedEvents.push({ homeTeam, awayTeam, homeScore, awayScore, homeImg, awayImg, tournament, matchDateString, matchDayString, matchTimeString, timestamp });
+                    const matchDate = date.toLocaleDateString('en-UK');
+                    const matchDay = date.toDateString().substring(0, 4);
+                    
+                    formattedEvents.push({ homeTeam, awayTeam, homeScore, awayScore, homeImg, awayImg, tournament, timestamp, matchDate, matchDay});
                 }
 
 
             }
-            this.basketballUpcoming = formattedEvents;
+            this.basketballUpcoming = this.basketballUpcoming.concat(formattedEvents);
             console.log(formattedEvents[0]);
 
 
         },
 
-        formatBasketballRecent(response) {
+        formatBasketballRecent(response,date) {
             const formattedEvents = [];
             const top_football_leagues = ["NBA"];
 
@@ -482,28 +545,22 @@ const landing = {
                         const homeImg = this.getTeamImageURL(homeId);
                         const awayImg = this.getTeamImageURL(awayId);
 
-                        const matchDate = new Date(timestamp);
 
-
-                        const matchDateString = matchDate.toLocaleDateString('en-US');
-                        console.log(matchDate.toLocaleDateString('en-US'));
-                        const matchDayString = matchDate.toLocaleDateString();
-                        const matchTimeString = matchDate.toLocaleTimeString();
                         formattedEvents.push({
-                            homeTeam, awayTeam, homeScore, awayScore, homeImg, awayImg, tournament, winnerMsg, matchDateString, matchDayString, matchTimeString, timestamp,
+                            homeTeam, awayTeam, homeScore, awayScore, homeImg, awayImg, tournament, winnerMsg,
                         });
+
                     }
 
                 }
-
-                }
-                this.basketballRecent = formattedEvents;
+            }
+                this.basketballRecent = this.basketballRecent.concat(formattedEvents);
                 console.log(formattedEvents[0]);
 
 
             },
 
-            formatFootballUpcoming(response) {
+            formatFootballUpcoming(response,date) {
                 const formattedEvents = [];
                 const top_football_leagues = ["Premier League", "La Liga", "Bundesliga", "Serie A", "Ligue 1", "Major League Soccer", "UEFA Champions League", "Indian Super League", "European Championship, Qualification"];
                 const country = ['England', 'Italy', 'Germany', 'Spain', 'France', 'United States of America', 'Category', 'India', "Europe"];
@@ -516,17 +573,19 @@ const landing = {
                         const awayId = match.awayTeam.id;
                         const homeImg = this.getTeamImageURL(homeId);
                         const awayImg = this.getTeamImageURL(awayId);
+                        const matchDate = date.toLocaleDateString('en-UK');
+                        const matchDay = date.toDateString().substring(0, 4);
 
                         formattedEvents.push({
-                            homeTeam, homeImg, awayTeam, awayImg, tournament
-                        })
+                            homeTeam, homeImg, awayTeam, awayImg, tournament, matchDate, matchDay
+                        });
                     }
                 }
-                this.footballUpcoming = formattedEvents;
+                this.footballUpcoming = this.footballUpcoming.concat(formattedEvents);
                 console.log(formattedEvents[0]);
             },
 
-            formatFootballRecent(response) {
+            formatFootballRecent(response,date) {
                 const formattedEvents = [];
                 const top_football_leagues = ["Premier League", "La Liga", "Bundesliga", "Serie A", "Ligue 1", "Major League Soccer", "UEFA Champions League", "Indian Super League", "European Championship, Qualification"];
                 const country = ['England', 'Italy', 'Germany', 'Spain', 'France', 'United States of America', 'Category', 'India', "Europe"];
@@ -560,14 +619,189 @@ const landing = {
 
                         }
                         formattedEvents.push({
-                            homeTeam, homeScore, homeImg, awayTeam, awayScore, awayImg, winnerMsg, tournament
+                            homeTeam, homeScore, homeImg, awayTeam, awayScore, awayImg, winnerMsg, tournament, date
                         })
                     }
                 }
-                this.footballRecent = formattedEvents;
+                this.footballRecent = this.footballRecent.concat(formattedEvents);
                 console.log(formattedEvents[0]);
-            },
+        },
 
+                formatTennisUpcoming(response,date) {
+
+                        const formattedEvents = [];
+                        var i = 0;
+                        for (const match of response.events) {
+        
+                            const tournament = match.tournament.name;
+                            const homeTeam = match.homeTeam.name;
+                            const awayTeam = match.awayTeam.name;
+
+                            const homeId = match.homeTeam.id;
+                            const awayId = match.awayTeam.id;
+                            const homeImg = this.getTeamImageURL(homeId);
+                            const awayImg = this.getTeamImageURL(awayId);
+
+                            const matchDate = date.toLocaleDateString('en-UK');
+                            const matchDay = date.toDateString().substring(0, 4);
+
+                            formattedEvents.push({
+                            tournament,
+                            homeTeam, homeImg, awayTeam, awayImg,matchDate,matchDay
+                            });
+                            i = i+1;
+                            if(i>10){
+                            break;
+                            }
+        
+                        }
+                        this.tennisUpcoming = this.tennisUpcoming.concat(formattedEvents);
+                        console.log(formattedEvents[0]);
+
+             },
+
+            formatTennisRecent(response,date) {
+
+                const formattedEvents = [];
+                var i = 0;
+                for (const match of response.events) {
+        
+                    const tournament = match.tournament.name;
+                    const homeTeam = match.homeTeam.name;
+                    const awayTeam = match.awayTeam.name;
+
+                    const homeScore = match.homeScore.current || '';
+                    const homePoint = match.homeScore.point || '';
+                    const awayScore = match.awayScore.current || '';
+                    const awayPoint = match.awayScore.point || '';
+                    var homePeriod1 = match.homeScore.period1 || '';
+                    var homePeriod2 = match.homeScore.period2 || '';
+                    var homePeriod3 = match.homeScore.period3 || '';
+                    var homePeriod4 = match.homeScore.period4 || '';
+                    var homePeriod5 = match.homeScore.period5 || '';
+                    var awayPeriod1 = match.awayScore.period1 || '';
+                    var awayPeriod2 = match.awayScore.period2 || '';
+                    var awayPeriod3 = match.awayScore.period3 || '';
+                    var awayPeriod4 = match.awayScore.period4 || '';
+                    var awayPeriod5 = match.awayScore.period5 || '';
+
+                    var winnerNote = '';
+        
+                    if(match.winnerCode !== undefined){
+                      const winnerCode = match.winnerCode;
+                      if(winnerCode == 1){
+                      winnerNote = `${homeTeam} won`;
+                      }
+                      else{
+                      winnerNote = `${awayTeam} won`;
+                      }
+                    }
+
+                    const homeId = match.homeTeam.id;
+                    const awayId = match.awayTeam.id;
+                    const homeImg = this.getTeamImageURL(homeId);
+                    const awayImg = this.getTeamImageURL(awayId);
+
+                    formattedEvents.push({
+                    tournament,
+                    homeTeam, homeScore, homePoint, homeImg, homePeriod1, homePeriod2, homePeriod3, homePeriod4, homePeriod5,
+                    awayTeam, awayScore, awayPoint, awayImg, awayPeriod1, awayPeriod2, awayPeriod3, awayPeriod4, awayPeriod5,
+                    winnerNote,date
+                    });
+                    i = i+1;
+                    if(i>10){
+                    break;
+                    }
+        
+                }
+                this.tennisRecent = this.tennisRecent.concat(formattedEvents);
+                console.log(formattedEvents[0]);
+
+        },
+
+        formatCricketRecent(response,date){
+              const formattedEvents = [];
+              for (const match of response['events']) {
+                  const tournament = match.tournament.name;
+                  const homeTeam = match.homeTeam.shortName;
+                  const awayTeam = match.awayTeam.shortName;
+                  const homeScore = match.homeScore;
+                  const awayScore = match.awayScore;
+                  const homeId = match.homeTeam.id;
+                  const awayId = match.awayTeam.id;
+                  const homeImg = this.getTeamImageURL(homeId);
+                  const awayImg = this.getTeamImageURL(awayId);
+
+                  var homeRuns = '';
+                  var homeWickets = '';
+                  var homeOvers = '';
+                  var homeRR = '';
+                  var awayRuns = '';
+                  var awayWickets = '';
+                  var awayOvers = '';
+                  var awayRR = '';
+                  var winNote = '';
+
+                  if(homeScore && awayScore && homeScore.innings && awayScore.innings){
+  
+                    if (!awayScore.innings && homeScore.innings) {
+                        awayScore.innings = { inning1: { score: '0', wickets: '0', overs: '0', runRate: '0' } };
+                    } else if (!homeScore.innings && awayScore.innings) {
+                        homeScore.innings = { inning1: { score: '0', wickets: '0', overs: '0', runRate: '0' } };
+                    }
+    
+                    homeRuns = homeScore.innings.inning1.score || '';
+                    homeWickets = homeScore.innings.inning1.wickets || '';
+                    homeOvers = homeScore.innings.inning1.overs || '';
+                    homeRR = homeScore.innings.inning1.runRate || '';
+                    awayRuns = awayScore.innings.inning1.score || '';
+                    awayWickets = awayScore.innings.inning1.wickets || '';
+                    awayOvers = awayScore.innings.inning1.overs || '';
+                    awayRR = awayScore.innings.inning1.runRate || '';
+                    winNote = match.note || '';
+    
+
+                  }
+                  formattedEvents.push({
+                    tournament,
+                    homeTeam, homeRuns, homeWickets, homeOvers, homeRR, homeImg,
+                    awayTeam, awayRuns, awayWickets, awayOvers, awayRR, awayImg,
+                    winNote,date
+                  });
+    
+    
+            }
+              this.cricketRecent=this.cricketRecent.concat(formattedEvents);
+              console.log(formattedEvents[0]);
+  
+        },
+
+        formatCricketUpcoming(response,date) {
+            const formattedEvents = [];
+            for (const match of response['events']) {
+                const tournament = match.tournament.name;
+                const homeTeam = match.homeTeam.shortName;
+                const awayTeam = match.awayTeam.shortName;
+                const homeId = match.homeTeam.id;
+                const awayId = match.awayTeam.id;
+                const homeImg = this.getTeamImageURL(homeId);
+                const awayImg = this.getTeamImageURL(awayId);
+
+                const matchDate = date.toLocaleDateString('en-UK');
+                const matchDay = date.toDateString().substring(0, 4);
+
+               
+                formattedEvents.push({
+                    tournament,
+                    homeTeam, homeImg,
+                    awayTeam, awayImg,matchDay,matchDate
+                });
+
+
+            }
+            this.cricketUpcoming = this.cricketUpcoming.concat(formattedEvents);
+            console.log(formattedEvents[0]);
+        },
 
 
 
@@ -660,7 +894,8 @@ const landing = {
 
         },
 
-        mounted() {
+    mounted() {
+            this.fetchNewsData();
             this.fetchData(this.formatBasketballScore, 'https://api.sofascore.com/api/v1/sport/basketball/events/live');
             this.fetchData(this.formatFootballScore, 'https://api.sofascore.com/api/v1/sport/football/events/live');
             this.fetchData(this.formatCricketScore, 'https://api.sofascore.com/api/v1/sport/cricket/events/live');
@@ -676,9 +911,10 @@ const landing = {
                 adjustedStartDate.setDate(this.startDate.getDate() + i);
 
                 // Use adjustedStartDate in the fetchData call
-                this.fetchData(
+                this.fetchCalendarData(
                     this.formatBasketballUpcoming,
-                    `https://api.sofascore.com/api/v1/category/15/scheduled-events/${adjustedStartDate.toISOString().split('T')[0]}`
+                    `https://api.sofascore.com/api/v1/category/15/scheduled-events/${adjustedStartDate.toISOString().split('T')[0]}`,
+                    adjustedStartDate
                 );
             }
 
@@ -688,9 +924,10 @@ const landing = {
                 adjustedStartDate.setDate(this.startDate.getDate() - i);
 
                 // Use adjustedStartDate in the fetchData call
-                this.fetchData(
+                this.fetchCalendarData(
                     this.formatBasketballRecent,
-                    `https://api.sofascore.com/api/v1/category/15/scheduled-events/${adjustedStartDate.toISOString().split('T')[0]}`
+                    `https://api.sofascore.com/api/v1/category/15/scheduled-events/${adjustedStartDate.toISOString().split('T')[0]}`,
+                    adjustedStartDate
                 );
             }
 
@@ -700,9 +937,10 @@ const landing = {
                 adjustedStartDate.setDate(this.startDate.getDate() - i);
 
                 // Use adjustedStartDate in the fetchData call
-                this.fetchData(
+                this.fetchCalendarData(
                     this.formatFootballRecent,
-                    `https://api.sofascore.com/api/v1/sport/football/scheduled-events/${adjustedStartDate.toISOString().split('T')[0]}`
+                    `https://api.sofascore.com/api/v1/sport/football/scheduled-events/${adjustedStartDate.toISOString().split('T')[0]}`,
+                    adjustedStartDate
                 );
             }
 
@@ -712,12 +950,65 @@ const landing = {
                 adjustedStartDate.setDate(this.startDate.getDate() + i);
 
                 // Use adjustedStartDate in the fetchData call
-                this.fetchData(
+                this.fetchCalendarData(
                     this.formatFootballUpcoming,
-                    `https://api.sofascore.com/api/v1/sport/football/scheduled-events/${adjustedStartDate.toISOString().split('T')[0]}`
+                    `https://api.sofascore.com/api/v1/sport/football/scheduled-events/${adjustedStartDate.toISOString().split('T')[0]}`,
+                    adjustedStartDate
                 );
             }
 
+            for (let i = 1; i < 3; i++) {
+                // Adjust startDate based on the loop variable i
+                const adjustedStartDate = new Date(this.startDate);
+                adjustedStartDate.setDate(this.startDate.getDate() + i);
+
+                // Use adjustedStartDate in the fetchData call
+                this.fetchCalendarData(
+                    this.formatTennisUpcoming,
+                    `https://api.sofascore.com/api/v1/sport/tennis/scheduled-events/${adjustedStartDate.toISOString().split('T')[0]}`,
+                    adjustedStartDate
+                );
+            }
+
+            for (let i = 1; i < 3; i++) {
+                // Adjust startDate based on the loop variable i
+                const adjustedStartDate = new Date(this.startDate);
+                adjustedStartDate.setDate(this.startDate.getDate() - i);
+
+                // Use adjustedStartDate in the fetchData call
+                this.fetchCalendarData(
+                    this.formatTennisRecent,
+                    `https://api.sofascore.com/api/v1/sport/tennis/scheduled-events/${adjustedStartDate.toISOString().split('T')[0]}`,
+                    adjustedStartDate
+                );
+            }
+
+            for (let i = 1; i < 3; i++) {
+                // Adjust startDate based on the loop variable i
+                const adjustedStartDate = new Date(this.startDate);
+                adjustedStartDate.setDate(this.startDate.getDate() - i);
+
+                // Use adjustedStartDate in the fetchData call
+                this.fetchCalendarData(
+                    this.formatCricketRecent,
+                    `https://api.sofascore.com/api/v1/sport/cricket/scheduled-events/${adjustedStartDate.toISOString().split('T')[0]}`,
+                    adjustedStartDate
+                );
+            }
+
+            for (let i = 1; i < 3; i++) {
+                // Adjust startDate based on the loop variable i
+                const adjustedStartDate = new Date(this.startDate);
+                adjustedStartDate.setDate(this.startDate.getDate() + i);
+                console.log(adjustedStartDate);
+
+                // Use adjustedStartDate in the fetchData call
+                this.fetchCalendarData(
+                    this.formatCricketUpcoming,
+                    `https://api.sofascore.com/api/v1/sport/cricket/scheduled-events/${adjustedStartDate.toISOString().split('T')[0]}`,
+                    adjustedStartDate
+                );
+            }
 
         }
     }

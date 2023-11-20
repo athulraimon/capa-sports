@@ -288,3 +288,7 @@ body {
 .f1-header {
     color: orangered;
 }
+
+.selected {
+    color: #a2a7db;
+}

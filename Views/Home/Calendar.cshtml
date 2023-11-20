@@ -35,11 +35,11 @@
     <!-- ... Your existing sports icons ... -->
     <div class="calendar-tab">
         <div class="col-2 text-center" style="flex:1">
-            <button class="sports-button" v-on:click="selectUpcoming">Upcoming</button>
+            <button class="sports-button" :class="{'selected':showUpcoming}" v-on:click="selectUpcoming">Upcoming</button>
         </div>
     
         <div class="col-2 text-center" style="flex:1">
-            <button class="sports-button" v-on:click="selectRecent">Recent</button>
+            <button class="sports-button" :class="{'selected':showRecent}" v-on:click="selectRecent">Recent</button>
         </div>
     </div>  
 
@@ -56,12 +56,12 @@
                     <tr>
                         <td><img :src="f.homeImg" /></td>
                         <td>{{f.homeTeam}}</td>
-                        <td></td>
+                        <td>{{f.matchDate}}</td>
                     </tr>
                     <tr>
                         <td><img :src="f.awayImg" /></td>
                         <td>{{f.awayTeam}}</td>
-                        <td></td>
+                        <td>{{f.matchDay}}</td>
                     </tr>
                 </table>
             </div>
@@ -78,15 +78,59 @@
                     <tr>
                         <td><img :src="f.homeImg" /></td>
                         <td>{{f.homeTeam}}</td>
-                        <td></td>
+                        <td>{{f.matchDate}}</td>
                     </tr>
                     <tr>
                         <td><img :src="f.awayImg" /></td>
                         <td>{{f.awayTeam}}</td>
-                        <td></td>
+                        <td>{{f.matchDay}}</td>
                     </tr>
                 </table>
             </div>
+
+            <h3><span class ="cricket-header" v-if="showCric">Cricket</span></h3>
+                <div v-for ="f in cricketUpcoming" class="scorecards-box" v-if="showCric">
+                <table style="width: 100%" >
+                  <h7>{{f.tournament}}</h7>
+                  <tr>
+                  <th style="width:70px;"></th>
+                  <th style="width:150px;">Team</th>
+                  <th></th>
+                  </tr>
+                  <tr>
+                    <td><img :src="f.homeImg"/></td>
+                    <td>{{f.homeTeam}}</td>
+                    <td>{{f.matchDate}}</td>
+                  </tr>
+                  <tr>
+                    <td><img :src="f.awayImg" /></td>
+                    <td>{{f.awayTeam}}</td>
+                    <td>{{f.matchDay}}</td>
+                  </tr>
+                </table>
+              </div>
+
+            <h3><span class="tennis-header" v-if="showTen">Tennis</span></h3>
+                <div v-for="f in tennisUpcoming" class="scorecards-box" v-if="showTen">
+                <table style="width: 100%">
+                  <h7>{{f.tournament}}</h7>
+                  <tr>
+                    <th></th>
+                    <th style="width:200px;"></th>
+                    <th></th>
+                  </tr>
+                  <tr>
+                    <td><img :src="f.homeImg" /></td>
+                    <td>{{f.homeTeam}}</td>
+                    <td>{{f.matchDate}}</td>
+                  </tr>
+                  <tr>
+                    <td><img :src="f.awayImg" /></td>
+                    <td>{{f.awayTeam}}</td>
+                    <td>{{f.matchDay}}</td>
+                  </tr>
+                </table>
+              </div>
 
             
         </div>
@@ -136,6 +180,67 @@
                     </tr>
                 </table>
                 <h7>{{f.winnerMsg}}</h7>
+            </div>
+
+            <h3><span class ="cricket-header" v-if="showCric">Cricket</span></h3>
+                <div v-for ="f in cricketRecent" class="scorecards-box" v-if="showCric">
+                <table style="width: 100%" >
+                  <h7>{{f.tournament}}</h7>
+                  <tr>
+                  <th style="width:70px;"></th>
+                  <th style="width:150px;">Team</th>
+                  <th style="width:50px;">Score</th>
+                  </tr>
+                  <tr>
+                    <td><img :src="f.homeImg"/></td>
+                    <td>{{f.homeTeam}}</td>
+                    <td>{{f.homeRuns}}/{{f.homeWickets}} ({{f.homeOvers}})</td>
+                  </tr>
+                  <tr>
+                    <td><img :src="f.awayImg" /></td>
+                    <td>{{f.awayTeam}}</td>
+                    <td>{{f.awayRuns}}/{{f.awayWickets}} ({{f.awayOvers}})</td>
+                  </tr>
+                </table>
+                <h7>{{f.winNote}}</h7>
+              </div>
+
+            <h3><span class="tennis-header" v-if="showTen">Tennis</span></h3>
+                <div v-for="f in tennisRecent" class="scorecards-box" v-if="showTen">
+                <table style="width: 100%">
+                  <h7>{{f.tournament}}</h7>
+                  <tr>
+                    <th></th>
+                    <th style="width:200px;"></th>
+                    <th style="width:15px;"></th>
+                    <th style="width:15px;"></th>
+                    <th style="width:15px;"></th>
+                    <th style="width:15px;"></th>
+                    <th style="width:15px;"></th>
+                  </tr>
+                  <tr>
+                    <td><img :src="f.homeImg" /></td>
+                    <td>{{f.homeTeam}}</td>
+                    <td>{{f.homePeriod1}} </td>
+                    <td>{{f.homePeriod2}}</td>
+                    <td>{{f.homePeriod3}}</td>
+                    <td>{{f.homePeriod4}}</td>
+                    <td>{{f.homePeriod5}}</td>
+
+                  </tr>
+                  <tr>
+                    <td><img :src="f.awayImg" /></td>
+                    <td>{{f.awayTeam}}</td>
+                    <td>{{f.awayPeriod1}} </td>
+                    <td>{{f.awayPeriod2}}</td>
+                    <td>{{f.awayPeriod3}}</td>
+                    <td>{{f.awayPeriod4}}</td>
+                    <td>{{f.awayPeriod5}}</td>
+                  </tr>
+                </table>
+                <h7>{{f.winnerNote}}</h7>
+              </div>
+
     </div>
 
 
