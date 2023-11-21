@@ -1,5 +1,5 @@
 body {
-    /*background-image: url('../img/back.jpg'); /* Replace with the actual web image URL */
+  /* Replace with the correct path to your image */
     background-size: cover;
     background-position: center;
     font-family: Arial, sans-serif;
@@ -9,7 +9,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    max-width:none;
+    max-width: none;
 }
 
 .login-container {
@@ -20,7 +20,6 @@ body {
     width: 300px;
     text-align: center;
     margin: 0 auto;
-
 }
 
     .login-container h2 {
@@ -44,6 +43,10 @@ body {
         border-radius: 5px;
         cursor: pointer;
     }
+
+
+
+
 
 .new-user-link {
     margin-top: 10px;

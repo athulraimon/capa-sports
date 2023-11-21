@@ -13,10 +13,10 @@ namespace capa_app.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        /*public IActionResult Index()
         {
             return View();
-        }
+        }*/
 
         [HttpGet("/Stats")]
         public IActionResult Stats()
@@ -41,7 +41,17 @@ namespace capa_app.Controllers
         {
             return View();
         }
-
+        [HttpGet("/")]
+        public IActionResult Login()
+        {
+            return View();
+        }
+        [HttpGet("/Index")]
+        public IActionResult Index()
+        {
+            return View();
+        }
+        
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -52,4 +62,5 @@ namespace capa_app.Controllers
 
 
     }
+
 }
