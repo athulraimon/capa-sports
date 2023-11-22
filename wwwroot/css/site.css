@@ -295,3 +295,9 @@ body {
 .selected {
     color: #a2a7db;
 }
+
+.credits {
+    top: 100px;
+    position: absolute;
+    left:20px;
+}

@@ -10,8 +10,11 @@
            
             padding: 20px;
             border-radius: 10px;
+            border:none;
            
         }
+
+
 </style>
 
 
@@ -24,7 +27,7 @@
     <!-- Include any additional styles or scripts as needed -->
 </head>
 <body style="background-image: url('/img/back.jpg');">
-    <div class="login-container">
+    <div class="login-container" id="loginFormContainer">
         <h2>Login</h2>
         <form id="loginForm">
             <input type="email" id="loginEmail" placeholder="Email" required>
@@ -97,13 +100,13 @@
         }
 
         function showRegistrationForm() {
-            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('loginFormContainer').style.display = 'none';
             document.getElementById('registrationFormContainer').style.display = 'block';
         }
 
         function showLoginForm() {
             document.getElementById('registrationFormContainer').style.display = 'none';
-            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('loginFormContainer').style.display = 'block';
         }
     </script>
 </body>
