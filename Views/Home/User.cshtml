@@ -1,37 +1,60 @@
-﻿
-    <div class="banner text-center  " style="background-color: black">
-        <img src="img/app-logo.png" alt="App Logo" >
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Web App</title>
+    <!-- Add your CSS styles and other meta tags here -->
+</head>
+<body>
+    <h3>Hello , how was your experience so far, make sure to stay up to date so as to see our newest features which would include streaming the most viewed matches!!!</h3>
+    <div class="banner text-center" style="background-color: black">
+        <img src="img/app-logo.png" alt="App Logo">
     </div>
-    
-    
-    
-    
+
     <!-- Start of Navigation Section -->
-<div class="navigation mt-4 push-to-bottom">
+    <div class="navigation mt-4 push-to-bottom">
 
-    <div class="row navigation-container">
-        <!-- Center align the navigation content -->
+        <div class="row navigation-container">
+            <!-- Center align the navigation content -->
 
-        <div class="col-2 text-center navigation-item" onclick="openNewsWindow()">
-            <i class="fas fa-newspaper" ></i> <!-- News icon -->
+            <div class="col-2 text-center navigation-item" onclick="openNewsWindow()">
+                <i class="fas fa-newspaper"></i> <!-- News icon -->
+            </div>
+            <div class="col-2 text-center navigation-item" onclick="openStatsWindow()">
+                <i class="fas fa-list-ol"></i> <!-- Standings icon -->
+            </div>
+            <div class="col-2 text-center navigation-item" onclick="openCalWindow()">
+                <i class="fas fa-calendar-alt"></i> <!-- Calendar icon -->
+            </div>
+            <div class="col-2 text-center navigation-item" onclick="openScoreWindow()">
+                <i class="fas fa-trophy"></i> <!-- Scores icon -->
+            </div>
+            <div class="col-2 text-center navigation-item" onclick="openUserWindow()">
+                <i class="fas fa-user highlighted-icon"></i> <!-- User icon -->
+            </div>
 
-        </div>
-        <div class="col-2 text-center navigation-item" onclick="openStatsWindow()">
-            <i class="fas fa-list-ol"></i> <!-- Standings icon -->
-
-        </div>
-        <div class="col-2 text-center navigation-item" onclick="openCalWindow()">
-            <i class="fas fa-calendar-alt"></i> <!-- Calendar icon -->
-
-        </div>
-        <div class="col-2 text-center navigation-item" onclick="openScoreWindow()">
-            <i class="fas fa-trophy"></i> <!-- Scores icon -->
-
-        </div>
-        <div class="col-2 text-center navigation-item" onclick="openUserWindow()">
-            <i class="fas fa-user highlighted-icon"></i> <!-- Scores icon -->
-
+            <!-- Add a new navigation item for the logout button -->
+            <div class="col-2 text-center navigation-item" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> <!-- Logout icon -->
+            </div>
         </div>
     </div>
-</div>
     <!-- End of Navigation Section -->
+
+    <script>
+        // Function to handle logout and redirection to the login page
+        function logout() {
+            // Perform any necessary logout actions (e.g., clearing session)
+
+            // Redirect to the login page
+            window.location.href = "/";
+        }
+
+            // Existing functions for opening different windows (openNewsWindow, openStatsWindow, etc.) remain unchanged.
+
+    </script>
+
+    <!-- Include your JavaScript libraries and other scripts here -->
+</body>
+</html>
